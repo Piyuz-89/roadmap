@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Interview Prep Roadmap</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0a0f; color: #e8e8f0; font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: #12121e; border-bottom: 1px solid #1e1e30; padding: 20px 28px 0; position: sticky; top: 0; z-index: 100; }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header-title { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .header-title h1 { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-title p { font-size: 12px; color: #666; margin-top: 2px; }
+  .tabs { display: flex; gap: 4px; margin-top: 14px; }
+  .tab { padding: 8px 18px; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: 600; font-size: 13px; background: transparent; color: #666; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab.active { background: #1a1a2e; color: #fff; border-bottom: 2px solid #00C9A7; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
+
+  /* PHASE CARDS */
+  .phase-card { background: #12121e; border: 1px solid #1e1e30; border-radius: 12px; padding: 18px 22px; cursor: pointer; display: flex; align-items: center; gap: 18px; margin-bottom: 12px; transition: background 0.2s; }
+  .phase-card:hover { background: #16162a; }
+  .phase-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .phase-meta { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .phase-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .phase-desc { font-size: 12px; color: #888; line-height: 1.5; }
+  .phase-arrow { background: #1e1e30; border-radius: 8px; padding: 5px 12px; font-size: 12px; color: #666; white-space: nowrap; flex-shrink: 0; margin-left: auto; }
+
+  /* TIMELINE */
+  .timeline { background: #12121e; border-radius: 12px; padding: 18px 22px; border: 1px solid #1e1e30; margin-top: 28px; }
+  .timeline h3 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .timeline-bar { display: flex; gap: 4px; }
+  .timeline-seg { flex: 2; }
+  .timeline-seg-short { flex: 1; }
+  .timeline-track { height: 8px; border-radius: 4px; margin-bottom: 5px; }
+  .timeline-label { font-size: 10px; color: #555; }
+
+  /* PHASE DETAIL */
+  .back-btn { background: transparent; border: 1px solid #2a2a40; border-radius: 8px; color: #888; cursor: pointer; padding: 6px 14px; font-size: 13px; margin-bottom: 20px; }
+  .phase-header { border-radius: 8px; padding-left: 20px; margin-bottom: 24px; }
+  .phase-header-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .phase-header h2 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+  .phase-header p { font-size: 13px; color: #888; }
+
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .card { background: #12121e; border-radius: 12px; padding: 18px; border: 1px solid #1e1e30; }
+  .card h3 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .daily-row { display: flex; gap: 10px; margin-bottom: 9px; align-items: flex-start; }
+  .time-badge { border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .daily-label { font-size: 13px; color: #bbb; }
+  .milestone-card { border-radius: 12px; padding: 18px; }
+  .milestone-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .milestone-text { font-size: 13px; color: #ccc; }
+  .resource-item { font-size: 13px; color: #888; margin-bottom: 6px; display: flex; gap: 8px; }
+
+  /* TOPICS GRID */
+  .topics-section { background: #12121e; border-radius: 12px; padding: 18px; border: 1px solid #1e1e30; }
+  .topics-section h3 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+  .topics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .topic-card { background: #0a0a0f; border-radius: 8px; padding: 12px 14px; border: 1px solid #1e1e30; }
+  .topic-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+  .topic-detail { font-size: 12px; color: #666; margin-bottom: 8px; }
+  .problem-link { display: flex; align-items: center; justify-content: space-between; text-decoration: none; padding: 5px 8px 5px 5px; border-radius: 6px; background: #12121e; border: 1px solid #1e1e30; margin-bottom: 4px; transition: border-color 0.15s; }
+  .problem-link:hover { border-color: #444; }
+  .problem-title { font-size: 12px; color: #bbb; flex: 1; }
+  .diff-badge { font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 6px; flex-shrink: 0; margin-left: 6px; }
+
+  /* WEEKLY */
+  .week-row { background: #12121e; border: 1px solid #1e1e30; border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 18px; margin-bottom: 8px; }
+  .week-day { width: 38px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; }
+  .week-focus { font-size: 13px; color: #ccc; }
+  .dsa-rule { background: #12121e; border-radius: 12px; padding: 18px; border: 1px solid #1e1e30; margin-top: 20px; }
+  .dsa-rule h3 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .dsa-rule p { font-size: 13px; color: #888; margin-bottom: 12px; line-height: 1.6; }
+  .tag { background: #0a0a0f; border: 1px solid #2a2a40; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #888; display: inline-block; margin: 3px; }
+
+  /* PROMPT */
+  .prompt-box { background: #12121e; border: 1px solid #2a2a40; border-radius: 12px; padding: 22px; position: relative; }
+  .prompt-text { font-size: 12px; color: #ccc; white-space: pre-wrap; line-height: 1.7; font-family: 'Courier New', monospace; }
+  .copy-btn { position: absolute; top: 14px; right: 14px; background: #1e1e30; border: 1px solid #2a2a40; border-radius: 8px; padding: 5px 12px; color: #888; cursor: pointer; font-size: 12px; font-weight: 600; }
+  .copy-btn:hover { background: #2a2a40; }
+  .copy-btn.copied { background: #00C9A720; border-color: #00C9A7; color: #00C9A7; }
+  .section-intro { color: #888; font-size: 13px; margin-bottom: 20px; }
+
+  /* PROGRESS TOGGLE */
+  .status-btn { border: none; border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+  .status-todo   { background: #1e1e30; color: #555; border: 1px solid #2a2a40; }
+  .status-inprog { background: #FFD93D25; color: #FFD93D; border: 1px solid #FFD93D50; }
+  .status-done   { background: #00C9A725; color: #00C9A7; border: 1px solid #00C9A750; }
+  .topic-card.is-inprog { border-color: #FFD93D50; }
+  .topic-card.is-done   { border-color: #00C9A750; }
+  .pl-check { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-right: 8px; flex-shrink: 0; color: #333; font-size: 18px; font-weight: 800; line-height: 1; transition: color 0.15s; user-select: none; }
+  .pl-check:hover { color: #00C9A7; }
+  .pl-check.checked { color: #00C9A7; }
+  .problem-link.pl-done .problem-title { text-decoration: line-through; color: #555; }
+  .progress-bar-wrap { background: #1e1e30; border-radius: 6px; height: 5px; margin-top: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 6px; background: #00C9A7; transition: width 0.4s; }
+  .progress-label { font-size: 11px; color: #555; margin-top: 4px; }
+
+  /* DAILY LOG */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .stat-card { background: #12121e; border: 1px solid #1e1e30; border-radius: 10px; padding: 14px; text-align: center; }
+  .stat-num { font-size: 24px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 11px; color: #666; margin-top: 3px; }
+  .log-form { background: #12121e; border: 1px solid #1e1e30; border-radius: 12px; padding: 18px; margin-bottom: 20px; }
+  .log-form h3 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+  .log-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .log-input { background: #0a0a0f; border: 1px solid #2a2a40; border-radius: 8px; padding: 8px 12px; color: #e8e8f0; font-size: 13px; flex: 1; min-width: 120px; }
+  .log-input:focus { outline: none; border-color: #00C9A7; }
+  .log-select { background: #0a0a0f; border: 1px solid #2a2a40; border-radius: 8px; padding: 8px 12px; color: #e8e8f0; font-size: 13px; cursor: pointer; }
+  .log-select:focus { outline: none; border-color: #00C9A7; }
+  .log-textarea { background: #0a0a0f; border: 1px solid #2a2a40; border-radius: 8px; padding: 10px 12px; color: #e8e8f0; font-size: 13px; width: 100%; resize: vertical; min-height: 70px; font-family: inherit; margin-bottom: 10px; }
+  .log-textarea:focus { outline: none; border-color: #00C9A7; }
+  .mood-row { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
+  .mood-label { font-size: 12px; color: #666; margin-right: 4px; }
+  .mood-btn { background: #1e1e30; border: 1px solid #2a2a40; border-radius: 8px; padding: 4px 10px; font-size: 16px; cursor: pointer; transition: all 0.15s; }
+  .mood-btn.selected { border-color: #00C9A7; background: #00C9A715; }
+  .log-add-btn { background: #00C9A7; color: #0a0a0f; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 700; cursor: pointer; width: 100%; }
+  .log-add-btn:hover { background: #00b396; }
+  .log-entry { background: #12121e; border: 1px solid #1e1e30; border-left: 3px solid #00C9A7; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .log-entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .log-date-badge { font-size: 12px; font-weight: 700; color: #00C9A7; }
+  .log-phase-tag { font-size: 11px; padding: 2px 8px; border-radius: 5px; font-weight: 600; margin-left: 8px; }
+  .log-notes { font-size: 13px; color: #bbb; line-height: 1.6; white-space: pre-wrap; margin-top: 6px; }
+  .log-footer { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+  .log-footer-item { font-size: 12px; color: #555; }
+  .log-footer-item b { color: #888; }
+  .log-del { background: transparent; border: none; color: #333; cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px; }
+  .log-del:hover { color: #FF6B6B; background: #FF6B6B15; }
+  .empty-log { text-align: center; padding: 40px 20px; color: #444; font-size: 14px; }
+  .streak-fire { font-size: 20px; }
+  .month-tracker { background: #12121e; border: 1px solid #1e1e30; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+  .tracker-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .tracker-title { font-size: 13px; font-weight: 700; color: #fff; }
+  .tracker-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .tracker-btn { width: 30px; height: 30px; border: 1px solid #2a2a40; border-radius: 7px; background: #0a0a0f; color: #888; cursor: pointer; font-size: 13px; font-weight: 700; }
+  .tracker-btn:hover { border-color: #00C9A7; color: #00C9A7; }
+  .tracker-today { width: auto; padding: 0 10px; }
+  .tracker-weekdays, .tracker-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .tracker-weekdays { margin-bottom: 6px; }
+  .tracker-weekday { font-size: 10px; color: #555; text-align: center; font-weight: 700; text-transform: uppercase; }
+  .tracker-day { min-height: 42px; border: 1px solid #1e1e30; border-radius: 7px; background: #0a0a0f; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: #666; }
+  .tracker-day.is-today { border-color: #4D96FF; }
+  .tracker-day.is-worked { background: #00C9A715; border-color: #00C9A780; color: #00C9A7; }
+  .tracker-day.empty { background: transparent; border-color: transparent; }
+  .tracker-date { font-size: 11px; font-weight: 700; line-height: 1; }
+  .tracker-check { width: 14px; height: 14px; accent-color: #00C9A7; cursor: pointer; }
+
+  /* HIDDEN */
+  .hidden { display: none; }
+
+  @media (max-width: 600px) {
+    .detail-grid, .topics-grid { grid-template-columns: 1fr; }
+    .phase-card { flex-wrap: wrap; }
+    .phase-arrow { margin-left: 0; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .tracker-header { align-items: flex-start; flex-direction: column; }
+    .tracker-day { min-height: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-title">
+      <span style="font-size:26px">🚀</span>
+      <div>
+        <h1>Interview Prep Roadmap</h1>
+        <p>Python · AI/ML · Azure · System Design — 16 Weeks · 4 hrs/day</p>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('roadmap', this)">Roadmap</button>
+      <button class="tab" onclick="showTab('weekly', this)">Weekly</button>
+      <button class="tab" onclick="showTab('tracker', this)">📅 Daily Log</button>
+      <button class="tab" onclick="showTab('prompt', this)">📋 Reusable Prompt</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ===== ROADMAP TAB ===== -->
+  <div id="tab-roadmap">
+    <div id="phase-list">
+      <p class="section-intro">Click any phase to see daily schedule, topics, and resources.</p>
+
+      <div class="phase-card" onclick="showPhase(1)" style="border-left: 4px solid #00C9A7">
+        <div class="phase-icon" style="background:#00C9A718;border:1px solid #00C9A740">🧱</div>
+        <div style="flex:1">
+          <div class="phase-meta" style="color:#00C9A7">Phase 1 · Weeks 1–4</div>
+          <div class="phase-name">DSA Foundations</div>
+          <div class="phase-desc">Build rock-solid problem solving. This is the non-negotiable filter in every SDE interview.</div>
+        </div>
+        <div class="phase-arrow">10 topics →</div>
+      </div>
+      <div id="phase-prog-1" style="padding: 0 22px 14px 90px; margin-top:-8px"></div>
+
+      <div class="phase-card" onclick="showPhase(2)" style="border-left: 4px solid #4D96FF">
+        <div class="phase-icon" style="background:#4D96FF18;border:1px solid #4D96FF40">🏗️</div>
+        <div style="flex:1">
+          <div class="phase-meta" style="color:#4D96FF">Phase 2 · Weeks 5–8</div>
+          <div class="phase-name">System Design (LLD + HLD)</div>
+          <div class="phase-desc">Critical for SDE-2/3 and senior ML engineer roles. Most candidates skip this — don't.</div>
+        </div>
+        <div class="phase-arrow">10 topics →</div>
+      </div>
+      <div id="phase-prog-2" style="padding: 0 22px 14px 90px; margin-top:-8px"></div>
+
+      <div class="phase-card" onclick="showPhase(3)" style="border-left: 4px solid #FF6B6B">
+        <div class="phase-icon" style="background:#FF6B6B18;border:1px solid #FF6B6B40">🤖</div>
+        <div style="flex:1">
+          <div class="phase-meta" style="color:#FF6B6B">Phase 3 · Weeks 9–12</div>
+          <div class="phase-name">AI/ML Deep Prep</div>
+          <div class="phase-desc">Your biggest differentiator. Go deep on concepts AND implementation. MLOps + Azure = your moat.</div>
+        </div>
+        <div class="phase-arrow">10 topics →</div>
+      </div>
+      <div id="phase-prog-3" style="padding: 0 22px 14px 90px; margin-top:-8px"></div>
+
+      <div class="phase-card" onclick="showPhase(4)" style="border-left: 4px solid #FFD93D">
+        <div class="phase-icon" style="background:#FFD93D18;border:1px solid #FFD93D40">🐍</div>
+        <div style="flex:1">
+          <div class="phase-meta" style="color:#FFD93D">Phase 4 · Weeks 11–12</div>
+          <div class="phase-name">Python Mastery</div>
+          <div class="phase-desc">Go deep on Python internals, concurrency, and advanced patterns that separate senior engineers from juniors.</div>
+        </div>
+        <div class="phase-arrow">8 topics →</div>
+      </div>
+      <div id="phase-prog-4" style="padding: 0 22px 14px 90px; margin-top:-8px"></div>
+
+      <div class="phase-card" onclick="showPhase(45)" style="border-left: 4px solid #00B4D8">
+        <div class="phase-icon" style="background:#00B4D818;border:1px solid #00B4D840">☁️</div>
+        <div style="flex:1">
+          <div class="phase-meta" style="color:#00B4D8">Phase 4B · Weeks 13–14</div>
+          <div class="phase-name">Azure & Cloud Architecture</div>
+          <div class="phase-desc">Master Azure services for ML and software deployment. This differentiates you heavily in AI/ML and cloud-focused roles.</div>
+        </div>
+        <div class="phase-arrow">8 topics →</div>
+      </div>
+      <div id="phase-prog-45" style="padding: 0 22px 14px 90px; margin-top:-8px"></div>
+
+      <div class="phase-card" onclick="showPhase(5)" style="border-left: 4px solid #C77DFF">
+        <div class="phase-icon" style="background:#C77DFF18;border:1px solid #C77DFF40">🎯</div>
+        <div style="flex:1">
+          <div class="phase-meta" style="color:#C77DFF">Phase 5 · Weeks 15–16</div>
+          <div class="phase-name">Mock Interviews & Offer</div>
+          <div class="phase-desc">Simulate real pressure. Fix gaps. Nail behavioral. Apply aggressively.</div>
+        </div>
+        <div class="phase-arrow">6 topics →</div>
+      </div>
+      <div id="phase-prog-5" style="padding: 0 22px 14px 90px; margin-top:-8px"></div>
+
+      <div class="timeline">
+        <h3>16-Week Timeline</h3>
+        <div class="timeline-bar">
+          <div class="timeline-seg"><div class="timeline-track" style="background:#00C9A760"></div><div class="timeline-label">Wk 1–4</div></div>
+          <div class="timeline-seg"><div class="timeline-track" style="background:#4D96FF60"></div><div class="timeline-label">Wk 5–8</div></div>
+          <div class="timeline-seg"><div class="timeline-track" style="background:#FF6B6B60"></div><div class="timeline-label">Wk 9–12</div></div>
+          <div class="timeline-seg-short"><div class="timeline-track" style="background:#FFD93D60"></div><div class="timeline-label">Wk 11–12</div></div>
+          <div class="timeline-seg-short"><div class="timeline-track" style="background:#00B4D860"></div><div class="timeline-label">Wk 13–14</div></div>
+          <div class="timeline-seg-short"><div class="timeline-track" style="background:#C77DFF60"></div><div class="timeline-label">Wk 15–16</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PHASE DETAILS ===== -->
+    <div id="phase-detail" class="hidden">
+      <button class="back-btn" onclick="showPhaseList()">← Back</button>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+
+  <!-- ===== WEEKLY TAB ===== -->
+  <div id="tab-weekly" class="hidden">
+    <p class="section-intro">Repeat this every week — swap the 3-hour block topic as you move through phases.</p>
+    <div class="week-row" style="border-left:4px solid #4D96FF"><span class="week-day" style="color:#4D96FF">Mon</span><span class="week-focus">DSA (1 hr) + System Design / LLD</span></div>
+    <div class="week-row" style="border-left:4px solid #FF6B6B"><span class="week-day" style="color:#FF6B6B">Tue</span><span class="week-focus">DSA (1 hr) + AI/ML Concept + Implement</span></div>
+    <div class="week-row" style="border-left:4px solid #4D96FF"><span class="week-day" style="color:#4D96FF">Wed</span><span class="week-focus">DSA (1 hr) + System Design / HLD</span></div>
+    <div class="week-row" style="border-left:4px solid #FFD93D"><span class="week-day" style="color:#FFD93D">Thu</span><span class="week-focus">DSA (1 hr) + Python Internals / Azure</span></div>
+    <div class="week-row" style="border-left:4px solid #00C9A7"><span class="week-day" style="color:#00C9A7">Fri</span><span class="week-focus">DSA (1 hr) + LLD Pattern with Code</span></div>
+    <div class="week-row" style="border-left:4px solid #00B4D8"><span class="week-day" style="color:#00B4D8">Sat</span><span class="week-focus">DSA (1 hr) + Project / End-to-End Build</span></div>
+    <div class="week-row" style="border-left:4px solid #C77DFF"><span class="week-day" style="color:#C77DFF">Sun</span><span class="week-focus">DSA (1 hr) + Weekly Review + Mock</span></div>
+    <div class="dsa-rule">
+      <h3>💡 Daily DSA Rule (Non-Negotiable)</h3>
+      <p>Even during System Design and ML phases, solve <strong style="color:#fff">2 LeetCode problems every day</strong>. Consistency compounds — missing a week costs 2 weeks to recover.</p>
+      <span class="tag">Phase 1: 3 problems/day</span>
+      <span class="tag">Phase 2–3: 2 problems/day</span>
+      <span class="tag">Phase 4–5: 1 contest/week</span>
+    </div>
+  </div>
+
+  <!-- ===== PROMPT TAB ===== -->
+  <div id="tab-prompt" class="hidden">
+    <p class="section-intro">Copy this prompt to instantly resume your prep context in any future conversation.</p>
+    <div class="prompt-box">
+      <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+      <pre class="prompt-text" id="prompt-text">## My Background & Interview Prep Context
+
+**Profile:** Python developer with 1.5+ years of professional experience specializing in AI/ML, Azure cloud services.
+
+**Current Goal:** Actively preparing to switch companies. Targeting roles in:
+- Software Development (SDE-1/SDE-2 level)
+- AI/ML Engineering
+- Python/Backend Development
+- MLOps / Cloud AI roles
+
+**Technical Strengths:**
+- Python (AI/ML pipelines, automation, advanced patterns)
+- Azure (services, ML Studio, OpenAI Service, deployment, architecture)
+- LLM/GenAI application development
+
+**Study Capacity:** 4 hours per day (1 hr DSA + 3 hrs topic)
+
+**Prep Plan (16 weeks total):**
+- Phase 1 (Wk 1–4): DSA — Arrays, Trees, Graphs, DP, Backtracking
+- Phase 2 (Wk 5–8): System Design — LLD (OOP, patterns) + HLD (distributed systems)
+- Phase 3 (Wk 9–12): AI/ML Deep Prep — ML fundamentals, LLMs, RAG, MLOps, Azure ML
+- Phase 4A (Wk 11–12): Python mastery — internals, async, decorators, metaclasses
+- Phase 4B (Wk 13–14): Azure deep-dive — Azure ML, OpenAI Service, AKS, DevOps, CI/CD
+- Phase 5 (Wk 15–16): Mock interviews, behavioral, applications
+
+**Current Phase:** [UPDATE THIS — e.g., "Phase 1, Week 2"]
+**Current Focus:** [UPDATE THIS — e.g., "Binary Trees and Graph BFS/DFS"]
+**Weak Areas:** [UPDATE THIS — e.g., "Dynamic Programming, System Design trade-offs"]
+
+---
+Please continue helping me with my interview prep based on this context.
+Today I want to work on: [YOUR SPECIFIC REQUEST]</pre>
+    </div>
+    <p style="font-size:12px;color:#555;margin-top:12px">Update the bracketed fields each time. This gives Claude instant context without re-explaining everything.</p>
+  </div>
+
+  <!-- ===== DAILY LOG TAB ===== -->
+  <div id="tab-tracker" class="hidden">
+
+    <!-- Stats row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-days">0</div>
+        <div class="stat-label">Days Logged</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-streak">0 🔥</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-hours">0h</div>
+        <div class="stat-label">Total Hours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-problems">0</div>
+        <div class="stat-label">Problems Solved</div>
+      </div>
+    </div>
+
+    <!-- Monthly Tracker -->
+    <div class="month-tracker">
+      <div class="tracker-header">
+        <div>
+          <div class="tracker-title" id="tracker-month-title">Monthly Tracker</div>
+          <div class="stat-label">Check every day you worked. Saving a log entry checks that day automatically.</div>
+        </div>
+        <div class="tracker-actions">
+          <button class="tracker-btn" onclick="shiftTrackerMonth(-1)" title="Previous month">&lt;</button>
+          <button class="tracker-btn tracker-today" onclick="showCurrentTrackerMonth()">Today</button>
+          <button class="tracker-btn" onclick="shiftTrackerMonth(1)" title="Next month">&gt;</button>
+        </div>
+      </div>
+      <div class="tracker-weekdays">
+        <div class="tracker-weekday">Sun</div>
+        <div class="tracker-weekday">Mon</div>
+        <div class="tracker-weekday">Tue</div>
+        <div class="tracker-weekday">Wed</div>
+        <div class="tracker-weekday">Thu</div>
+        <div class="tracker-weekday">Fri</div>
+        <div class="tracker-weekday">Sat</div>
+      </div>
+      <div class="tracker-grid" id="monthly-tracker"></div>
+    </div>
+
+    <!-- Log Form -->
+    <div class="log-form">
+      <h3>➕ Log Today's Session</h3>
+      <div class="log-row">
+        <input type="date" class="log-input" id="log-date" style="flex:0 0 auto"/>
+        <select class="log-select" id="log-phase">
+          <option value="">Phase...</option>
+          <option value="Phase 1 — DSA">Phase 1 — DSA</option>
+          <option value="Phase 2 — System Design">Phase 2 — System Design</option>
+          <option value="Phase 3 — AI/ML">Phase 3 — AI/ML</option>
+          <option value="Phase 4 — Python">Phase 4 — Python</option>
+          <option value="Phase 4B — Azure">Phase 4B — Azure</option>
+          <option value="Phase 5 — Mocks">Phase 5 — Mocks</option>
+        </select>
+        <input type="number" class="log-input" id="log-hours" placeholder="Hours studied" min="0" max="24" step="0.5" style="flex:0 0 140px"/>
+        <input type="number" class="log-input" id="log-problems" placeholder="Problems solved" min="0" style="flex:0 0 150px"/>
+      </div>
+      <input type="text" class="log-input" id="log-topic" placeholder="Topic studied (e.g. Binary Trees, Async Python...)" style="width:100%;margin-bottom:10px"/>
+      <textarea class="log-textarea" id="log-notes" placeholder="Notes, learnings, what went well, what to revisit..."></textarea>
+      <div class="mood-row">
+        <span class="mood-label">Mood:</span>
+        <button class="mood-btn" onclick="selectMood(this,'😤')">😤</button>
+        <button class="mood-btn" onclick="selectMood(this,'😐')">😐</button>
+        <button class="mood-btn" onclick="selectMood(this,'🙂')">🙂</button>
+        <button class="mood-btn" onclick="selectMood(this,'😄')">😄</button>
+        <button class="mood-btn" onclick="selectMood(this,'🔥')">🔥</button>
+      </div>
+      <button class="log-add-btn" onclick="addLogEntry()">Save Entry</button>
+    </div>
+
+    <!-- Entries list -->
+    <div id="log-list"></div>
+  </div>
+
+
+<script>
+const phases = {
+  1: {
+    color: "#00C9A7", icon: "🧱", title: "Phase 1", subtitle: "DSA Foundations", duration: "Weeks 1–4",
+    description: "Build rock-solid problem solving. This is the non-negotiable filter in every SDE interview.",
+    dailyPlan: [
+      { time: "1.5 hrs", label: "LeetCode problems (Easy → Medium)" },
+      { time: "1 hr", label: "Concept deep-dive (see topics below)" },
+      { time: "1 hr", label: "Re-solve yesterday's problems from scratch" },
+      { time: "30 min", label: "Review & annotate solutions" },
+    ],
+    resources: ["LeetCode (Blind 75 + NeetCode 150)", "AlgoMonster", "Striver's A-Z DSA Sheet"],
+    milestone: "Solve 100+ problems. Aim for Medium in <30 min.",
+    topics: [
+      { name: "Arrays & Strings", detail: "Two pointers, sliding window, prefix sums", problems: [
+        { title: "Two Sum", url: "https://leetcode.com/problems/two-sum/", diff: "Easy" },
+        { title: "Best Time to Buy & Sell Stock", url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/", diff: "Easy" },
+        { title: "Contains Duplicate", url: "https://leetcode.com/problems/contains-duplicate/", diff: "Easy" },
+        { title: "Maximum Subarray (Kadane's)", url: "https://leetcode.com/problems/maximum-subarray/", diff: "Medium" },
+        { title: "Longest Substring Without Repeating", url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/", diff: "Medium" },
+        { title: "Sliding Window Maximum", url: "https://leetcode.com/problems/sliding-window-maximum/", diff: "Hard" },
+      ]},
+      { name: "Hashing & Sets", detail: "Frequency maps, anagrams, duplicates", problems: [
+        { title: "Valid Anagram", url: "https://leetcode.com/problems/valid-anagram/", diff: "Easy" },
+        { title: "Group Anagrams", url: "https://leetcode.com/problems/group-anagrams/", diff: "Medium" },
+        { title: "Top K Frequent Elements", url: "https://leetcode.com/problems/top-k-frequent-elements/", diff: "Medium" },
+        { title: "Longest Consecutive Sequence", url: "https://leetcode.com/problems/longest-consecutive-sequence/", diff: "Medium" },
+        { title: "Subarray Sum Equals K", url: "https://leetcode.com/problems/subarray-sum-equals-k/", diff: "Medium" },
+      ]},
+      { name: "Linked Lists", detail: "Fast/slow pointer, reversal, merge", problems: [
+        { title: "Reverse Linked List", url: "https://leetcode.com/problems/reverse-linked-list/", diff: "Easy" },
+        { title: "Linked List Cycle", url: "https://leetcode.com/problems/linked-list-cycle/", diff: "Easy" },
+        { title: "Merge Two Sorted Lists", url: "https://leetcode.com/problems/merge-two-sorted-lists/", diff: "Easy" },
+        { title: "Remove Nth Node From End", url: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/", diff: "Medium" },
+        { title: "LRU Cache", url: "https://leetcode.com/problems/lru-cache/", diff: "Medium" },
+        { title: "Merge K Sorted Lists", url: "https://leetcode.com/problems/merge-k-sorted-lists/", diff: "Hard" },
+      ]},
+      { name: "Stacks & Queues", detail: "Monotonic stack, BFS queue patterns", problems: [
+        { title: "Valid Parentheses", url: "https://leetcode.com/problems/valid-parentheses/", diff: "Easy" },
+        { title: "Min Stack", url: "https://leetcode.com/problems/min-stack/", diff: "Medium" },
+        { title: "Daily Temperatures", url: "https://leetcode.com/problems/daily-temperatures/", diff: "Medium" },
+        { title: "Car Fleet", url: "https://leetcode.com/problems/car-fleet/", diff: "Medium" },
+        { title: "Largest Rectangle in Histogram", url: "https://leetcode.com/problems/largest-rectangle-in-histogram/", diff: "Hard" },
+      ]},
+      { name: "Binary Search", detail: "Search on answer, rotated arrays", problems: [
+        { title: "Binary Search", url: "https://leetcode.com/problems/binary-search/", diff: "Easy" },
+        { title: "Search in Rotated Sorted Array", url: "https://leetcode.com/problems/search-in-rotated-sorted-array/", diff: "Medium" },
+        { title: "Find Minimum in Rotated Array", url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/", diff: "Medium" },
+        { title: "Koko Eating Bananas", url: "https://leetcode.com/problems/koko-eating-bananas/", diff: "Medium" },
+        { title: "Median of Two Sorted Arrays", url: "https://leetcode.com/problems/median-of-two-sorted-arrays/", diff: "Hard" },
+      ]},
+      { name: "Recursion & Backtracking", detail: "Permutations, subsets, N-Queens", problems: [
+        { title: "Subsets", url: "https://leetcode.com/problems/subsets/", diff: "Medium" },
+        { title: "Permutations", url: "https://leetcode.com/problems/permutations/", diff: "Medium" },
+        { title: "Combination Sum", url: "https://leetcode.com/problems/combination-sum/", diff: "Medium" },
+        { title: "Word Search", url: "https://leetcode.com/problems/word-search/", diff: "Medium" },
+        { title: "N-Queens", url: "https://leetcode.com/problems/n-queens/", diff: "Hard" },
+        { title: "Sudoku Solver", url: "https://leetcode.com/problems/sudoku-solver/", diff: "Hard" },
+      ]},
+      { name: "Trees & BST", detail: "DFS/BFS, LCA, serialization", problems: [
+        { title: "Invert Binary Tree", url: "https://leetcode.com/problems/invert-binary-tree/", diff: "Easy" },
+        { title: "Maximum Depth of Binary Tree", url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/", diff: "Easy" },
+        { title: "Validate BST", url: "https://leetcode.com/problems/validate-binary-search-tree/", diff: "Medium" },
+        { title: "Lowest Common Ancestor of BST", url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/", diff: "Medium" },
+        { title: "Binary Tree Level Order Traversal", url: "https://leetcode.com/problems/binary-tree-level-order-traversal/", diff: "Medium" },
+        { title: "Serialize and Deserialize Binary Tree", url: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/", diff: "Hard" },
+      ]},
+      { name: "Graphs", detail: "BFS, DFS, Dijkstra, Union-Find", problems: [
+        { title: "Number of Islands", url: "https://leetcode.com/problems/number-of-islands/", diff: "Medium" },
+        { title: "Clone Graph", url: "https://leetcode.com/problems/clone-graph/", diff: "Medium" },
+        { title: "Course Schedule (Topo Sort)", url: "https://leetcode.com/problems/course-schedule/", diff: "Medium" },
+        { title: "Pacific Atlantic Water Flow", url: "https://leetcode.com/problems/pacific-atlantic-water-flow/", diff: "Medium" },
+        { title: "Network Delay Time (Dijkstra)", url: "https://leetcode.com/problems/network-delay-time/", diff: "Medium" },
+        { title: "Word Ladder", url: "https://leetcode.com/problems/word-ladder/", diff: "Hard" },
+      ]},
+      { name: "Dynamic Programming", detail: "1D/2D DP, knapsack, LCS, LIS", problems: [
+        { title: "Climbing Stairs", url: "https://leetcode.com/problems/climbing-stairs/", diff: "Easy" },
+        { title: "House Robber", url: "https://leetcode.com/problems/house-robber/", diff: "Medium" },
+        { title: "Longest Increasing Subsequence", url: "https://leetcode.com/problems/longest-increasing-subsequence/", diff: "Medium" },
+        { title: "Coin Change", url: "https://leetcode.com/problems/coin-change/", diff: "Medium" },
+        { title: "Longest Common Subsequence", url: "https://leetcode.com/problems/longest-common-subsequence/", diff: "Medium" },
+        { title: "Edit Distance", url: "https://leetcode.com/problems/edit-distance/", diff: "Medium" },
+        { title: "Burst Balloons", url: "https://leetcode.com/problems/burst-balloons/", diff: "Hard" },
+      ]},
+      { name: "Heaps & Priority Queue", detail: "Top-K, merge K lists, median", problems: [
+        { title: "Kth Largest Element in Array", url: "https://leetcode.com/problems/kth-largest-element-in-an-array/", diff: "Medium" },
+        { title: "Top K Frequent Words", url: "https://leetcode.com/problems/top-k-frequent-words/", diff: "Medium" },
+        { title: "Find Median from Data Stream", url: "https://leetcode.com/problems/find-median-from-data-stream/", diff: "Hard" },
+        { title: "Task Scheduler", url: "https://leetcode.com/problems/task-scheduler/", diff: "Medium" },
+        { title: "K Closest Points to Origin", url: "https://leetcode.com/problems/k-closest-points-to-origin/", diff: "Medium" },
+      ]},
+    ]
+  },
+  2: {
+    color: "#4D96FF", icon: "🏗️", title: "Phase 2", subtitle: "System Design (LLD + HLD)", duration: "Weeks 5–8",
+    description: "Critical for SDE-2/3 and senior ML engineer roles. Most candidates skip this — don't.",
+    dailyPlan: [
+      { time: "1 hr", label: "LLD: Design one class/pattern per day with code" },
+      { time: "1.5 hrs", label: "HLD: Study one system (YouTube, Uber, WhatsApp…)" },
+      { time: "1 hr", label: "DSA (maintain streak — 2 problems/day)" },
+      { time: "30 min", label: "Write design summary in your own words" },
+    ],
+    resources: ["Grokking System Design (Educative)", "ByteByteGo (Alex Xu)", "refactoring.guru (patterns)"],
+    milestone: "Design 5 full systems end-to-end. Code 3 LLD problems.",
+    topics: [
+      { name: "LLD — SOLID Principles", detail: "Single Responsibility, Open/Closed, Liskov, etc.", problems: [
+        { title: "SOLID Principles Explained (DigitalOcean)", url: "https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design", diff: "Read" },
+        { title: "SOLID in Python (Real Python)", url: "https://realpython.com/solid-principles-python/", diff: "Read" },
+        { title: "Visualised SOLID Guide (FreeCodeCamp)", url: "https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/", diff: "Read" },
+      ]},
+      { name: "LLD — Design Patterns", detail: "Singleton, Factory, Observer, Strategy, Builder", problems: [
+        { title: "Refactoring Guru — All Patterns", url: "https://refactoring.guru/design-patterns", diff: "Read" },
+        { title: "Python Design Patterns (GitHub)", url: "https://github.com/faif/python-patterns", diff: "Code" },
+        { title: "sourcemaking.com Patterns", url: "https://sourcemaking.com/design_patterns", diff: "Read" },
+      ]},
+      { name: "LLD — OOP Modeling", detail: "Parking Lot, Library, Chess, Elevator system", problems: [
+        { title: "Awesome LLD (GitHub)", url: "https://github.com/ashishps1/awesome-low-level-design", diff: "Practice" },
+        { title: "OOP Design Interview Questions (Educative)", url: "https://www.educative.io/blog/object-oriented-design-interview-questions", diff: "Practice" },
+        { title: "Machine Coding Problems (workat.tech)", url: "https://workat.tech/machine-coding/article/how-to-practice-for-machine-coding-kp0oj3sw2jca", diff: "Practice" },
+      ]},
+      { name: "HLD — CAP Theorem", detail: "Consistency vs Availability trade-offs", problems: [
+        { title: "CAP Theorem (ByteByteGo)", url: "https://bytebytego.com/concepts/cap-theorem", diff: "Read" },
+        { title: "Please Stop Calling DBs CP or AP (Kleppmann)", url: "https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html", diff: "Read" },
+      ]},
+      { name: "HLD — SQL vs NoSQL", detail: "When to use which, sharding, indexing", problems: [
+        { title: "SQL vs NoSQL (ByteByteGo)", url: "https://bytebytego.com/concepts/sql-vs-nosql", diff: "Read" },
+        { title: "Database Sharding (DigitalOcean)", url: "https://www.digitalocean.com/community/tutorials/understanding-database-sharding", diff: "Read" },
+        { title: "Use The Index, Luke (Indexing Guide)", url: "https://use-the-index-luke.com/", diff: "Read" },
+      ]},
+      { name: "HLD — Caching", detail: "Redis, eviction policies, CDN, write-through", problems: [
+        { title: "Caching Strategies (ByteByteGo)", url: "https://bytebytego.com/concepts/cache", diff: "Read" },
+        { title: "Redis University (Free)", url: "https://university.redis.com/", diff: "Course" },
+        { title: "Caching Best Practices (AWS)", url: "https://aws.amazon.com/caching/best-practices/", diff: "Read" },
+      ]},
+      { name: "HLD — Message Queues", detail: "Kafka, RabbitMQ, event-driven architecture", problems: [
+        { title: "Kafka in 100 Seconds (Fireship)", url: "https://www.youtube.com/watch?v=uvb00oaa3k8", diff: "Watch" },
+        { title: "Kafka Docs — Getting Started", url: "https://kafka.apache.org/documentation/#gettingStarted", diff: "Read" },
+        { title: "Event-Driven Architecture (Martin Fowler)", url: "https://martinfowler.com/articles/201701-event-driven.html", diff: "Read" },
+      ]},
+      { name: "HLD — Load Balancing", detail: "Round robin, consistent hashing, sticky sessions", problems: [
+        { title: "Load Balancing (ByteByteGo)", url: "https://bytebytego.com/concepts/load-balancer", diff: "Read" },
+        { title: "Consistent Hashing Explained (Toptal)", url: "https://www.toptal.com/big-data/consistent-hashing", diff: "Read" },
+      ]},
+      { name: "HLD — Microservices", detail: "API Gateway, service mesh, circuit breaker", problems: [
+        { title: "Microservices Patterns (Martin Fowler)", url: "https://martinfowler.com/microservices/", diff: "Read" },
+        { title: "Circuit Breaker Pattern (Martin Fowler)", url: "https://martinfowler.com/bliki/CircuitBreaker.html", diff: "Read" },
+        { title: "API Gateway Pattern (Microsoft)", url: "https://learn.microsoft.com/en-us/azure/architecture/microservices/design/gateway", diff: "Read" },
+      ]},
+      { name: "HLD — Distributed Systems", detail: "Consensus, replication, eventual consistency", problems: [
+        { title: "Designing Data-Intensive Applications (Book)", url: "https://dataintensive.net/", diff: "Read" },
+        { title: "Raft Consensus Visualized", url: "https://thesecretlivesofdata.com/raft/", diff: "Watch" },
+        { title: "MIT 6.824 Distributed Systems (Free)", url: "https://pdos.csail.mit.edu/6.824/schedule.html", diff: "Course" },
+      ]},
+    ]
+  },
+  3: {
+    color: "#FF6B6B", icon: "🤖", title: "Phase 3", subtitle: "AI/ML Deep Prep", duration: "Weeks 9–12",
+    description: "Your biggest differentiator. Go deep on concepts AND implementation. MLOps + Azure = your moat.",
+    dailyPlan: [
+      { time: "1.5 hrs", label: "ML concept study + implement from scratch in Python" },
+      { time: "1 hr", label: "LLM/GenAI — RAG, agents, fine-tuning concepts" },
+      { time: "1 hr", label: "DSA (maintain 2 problems/day)" },
+      { time: "30 min", label: "Review Azure ML / MLOps tools" },
+    ],
+    resources: ["Andrej Karpathy's nanoGPT (YouTube)", "Hands-On ML (Aurélien Géron)", "DeepLearning.AI Short Courses"],
+    milestone: "Build 2 end-to-end projects: one RAG app, one MLOps pipeline.",
+    topics: [
+      { name: "ML Fundamentals", detail: "Bias-variance, regularization, cross-validation, metrics", problems: [
+        { title: "ML Crash Course (Google)", url: "https://developers.google.com/machine-learning/crash-course", diff: "Course" },
+        { title: "StatQuest ML Playlist (YouTube)", url: "https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF", diff: "Watch" },
+        { title: "Scikit-learn User Guide", url: "https://scikit-learn.org/stable/user_guide.html", diff: "Read" },
+      ]},
+      { name: "Supervised Learning", detail: "Linear/Logistic regression, SVM, Decision Trees, XGBoost", problems: [
+        { title: "XGBoost Official Tutorials", url: "https://xgboost.readthedocs.io/en/stable/tutorials/", diff: "Read" },
+        { title: "StatQuest — Decision Trees & Forests", url: "https://www.youtube.com/watch?v=7VeUPuFGJHk", diff: "Watch" },
+        { title: "Kaggle ML Intermediate Course", url: "https://www.kaggle.com/learn/intermediate-machine-learning", diff: "Course" },
+      ]},
+      { name: "Unsupervised Learning", detail: "K-Means, DBSCAN, PCA, autoencoders", problems: [
+        { title: "PCA Visually Explained (setosa.io)", url: "https://setosa.io/ev/principal-component-analysis/", diff: "Watch" },
+        { title: "Clustering Algorithms (Sklearn Docs)", url: "https://scikit-learn.org/stable/modules/clustering.html", diff: "Read" },
+        { title: "Kaggle Intro to ML Course", url: "https://www.kaggle.com/learn/intro-to-machine-learning", diff: "Course" },
+      ]},
+      { name: "Deep Learning", detail: "CNNs, RNNs, LSTMs, Transformers — implement in PyTorch", problems: [
+        { title: "fast.ai Practical Deep Learning (Free)", url: "https://course.fast.ai/", diff: "Course" },
+        { title: "PyTorch Official Tutorials", url: "https://pytorch.org/tutorials/", diff: "Code" },
+        { title: "Karpathy — Neural Nets from Scratch", url: "https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ", diff: "Watch" },
+      ]},
+      { name: "NLP & LLMs", detail: "Embeddings, attention, BERT, GPT, RAG pipelines", problems: [
+        { title: "Attention Is All You Need (Paper)", url: "https://arxiv.org/abs/1706.03762", diff: "Read" },
+        { title: "Illustrated Transformer (Jay Alammar)", url: "https://jalammar.github.io/illustrated-transformer/", diff: "Read" },
+        { title: "HuggingFace NLP Course (Free)", url: "https://huggingface.co/learn/nlp-course/chapter1/1", diff: "Course" },
+      ]},
+      { name: "LLM Agents & Tools", detail: "LangChain, tool calling, memory, multi-agent systems", problems: [
+        { title: "LangChain Docs — Agents", url: "https://python.langchain.com/docs/concepts/agents/", diff: "Read" },
+        { title: "DeepLearning.AI — Functions, Tools & Agents", url: "https://www.deeplearning.ai/short-courses/functions-tools-agents-langchain/", diff: "Course" },
+        { title: "LlamaIndex RAG Concepts", url: "https://docs.llamaindex.ai/en/stable/getting_started/concepts/", diff: "Read" },
+      ]},
+      { name: "MLOps", detail: "Experiment tracking (MLflow), model serving, CI/CD for ML", problems: [
+        { title: "MLflow Quickstart Guide", url: "https://mlflow.org/docs/latest/getting-started/intro-quickstart/index.html", diff: "Code" },
+        { title: "Made With ML — MLOps Course (Free)", url: "https://madewithml.com/", diff: "Course" },
+        { title: "Full Stack Deep Learning (Free)", url: "https://fullstackdeeplearning.com/course/2022/", diff: "Course" },
+      ]},
+      { name: "Vector Databases", detail: "FAISS, Pinecone, Weaviate — use cases + implementation", problems: [
+        { title: "Vector DB Explained (Pinecone Blog)", url: "https://www.pinecone.io/learn/vector-database/", diff: "Read" },
+        { title: "FAISS Getting Started (Meta)", url: "https://faiss.ai/index.html", diff: "Code" },
+        { title: "Weaviate Tutorials", url: "https://weaviate.io/developers/weaviate/tutorials", diff: "Code" },
+      ]},
+      { name: "Azure ML", detail: "Azure ML Studio, AzureOpenAI, Databricks, pipelines", problems: [
+        { title: "Azure ML Quickstart", url: "https://learn.microsoft.com/en-us/azure/machine-learning/quickstart-create-resources", diff: "Code" },
+        { title: "Azure ML Pipelines Tutorial", url: "https://learn.microsoft.com/en-us/azure/machine-learning/tutorial-pipeline-python-sdk", diff: "Code" },
+        { title: "AI Engineer Certification Path", url: "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/", diff: "Course" },
+      ]},
+      { name: "Evaluation & Safety", detail: "RLHF, guardrails, hallucination detection, LLM evals", problems: [
+        { title: "RLHF Explained (HuggingFace)", url: "https://huggingface.co/blog/rlhf", diff: "Read" },
+        { title: "RAGAS — LLM Evaluation Framework", url: "https://docs.ragas.io/en/stable/", diff: "Code" },
+        { title: "DeepLearning.AI — Evaluating LLMs", url: "https://www.deeplearning.ai/short-courses/evaluating-debugging-generative-ai/", diff: "Course" },
+      ]},
+    ]
+  },
+  4: {
+    color: "#FFD93D", icon: "🐍", title: "Phase 4", subtitle: "Python Mastery", duration: "Weeks 11–12",
+    description: "Go deep on Python internals, concurrency, and advanced patterns that separate senior engineers from juniors.",
+    dailyPlan: [
+      { time: "1 hr", label: "DSA (daily, non-negotiable)" },
+      { time: "1.5 hrs", label: "Python internals + advanced patterns" },
+      { time: "1 hr", label: "Implement a pattern/concept from scratch" },
+      { time: "30 min", label: "Review + write notes in your own words" },
+    ],
+    resources: ["Fluent Python (Luciano Ramalho)", "Python Cookbook (Beazley)", "realpython.com deep dives"],
+    milestone: "Implement a mini async task queue and a plugin system using metaclasses.",
+    topics: [
+      { name: "Python Internals", detail: "GIL, memory model, garbage collection, CPython runtime", problems: [
+        { title: "Python's GIL Explained (Real Python)", url: "https://realpython.com/python-gil/", diff: "Read" },
+        { title: "Memory Management in Python (Real Python)", url: "https://realpython.com/python-memory-management/", diff: "Read" },
+        { title: "CPython Internals Book (Real Python)", url: "https://realpython.com/products/cpython-internals-book/", diff: "Read" },
+      ]},
+      { name: "Async Python", detail: "asyncio, threading vs multiprocessing, event loops, coroutines", problems: [
+        { title: "Asyncio Explained (Real Python)", url: "https://realpython.com/async-io-python/", diff: "Read" },
+        { title: "Threading vs Multiprocessing (Real Python)", url: "https://realpython.com/python-concurrency/", diff: "Read" },
+        { title: "asyncio Official Docs", url: "https://docs.python.org/3/library/asyncio.html", diff: "Read" },
+      ]},
+      { name: "Advanced Python", detail: "Decorators, descriptors, metaclasses, context managers", problems: [
+        { title: "Decorators Deep Dive (Real Python)", url: "https://realpython.com/primer-on-python-decorators/", diff: "Read" },
+        { title: "Python Metaclasses (Real Python)", url: "https://realpython.com/python-metaclasses/", diff: "Read" },
+        { title: "Context Managers (Real Python)", url: "https://realpython.com/python-with-statement/", diff: "Read" },
+      ]},
+      { name: "Python Performance", detail: "Profiling, caching (functools), generators, lazy evaluation", problems: [
+        { title: "Python Profiling Guide (Real Python)", url: "https://realpython.com/python-profiling/", diff: "Read" },
+        { title: "Generators & Iterators (Real Python)", url: "https://realpython.com/introduction-to-python-generators/", diff: "Read" },
+        { title: "functools Docs (Official)", url: "https://docs.python.org/3/library/functools.html", diff: "Read" },
+      ]},
+      { name: "OOP Deep Dive", detail: "Dunder methods, MRO, abstract classes, protocols", problems: [
+        { title: "Python Dunder Methods (Real Python)", url: "https://realpython.com/python-classes/#special-methods-and-protocols-in-python", diff: "Read" },
+        { title: "Python MRO & super() (Real Python)", url: "https://realpython.com/python-super/#an-overview-of-pythons-super-function", diff: "Read" },
+        { title: "ABCs and Protocols (Python Docs)", url: "https://docs.python.org/3/library/abc.html", diff: "Read" },
+      ]},
+      { name: "Testing & Quality", detail: "pytest, mocking, fixtures, TDD workflow", problems: [
+        { title: "pytest Official Docs", url: "https://docs.pytest.org/en/stable/", diff: "Read" },
+        { title: "Testing with pytest (Real Python)", url: "https://realpython.com/pytest-python-testing/", diff: "Read" },
+        { title: "Mocking in Python (Real Python)", url: "https://realpython.com/python-mock-library/", diff: "Read" },
+      ]},
+      { name: "Packaging & Tooling", detail: "Poetry, virtual envs, pyproject.toml, type hints + mypy", problems: [
+        { title: "Poetry Official Docs", url: "https://python-poetry.org/docs/", diff: "Read" },
+        { title: "mypy Type Checking Guide", url: "https://mypy.readthedocs.io/en/stable/getting_started.html", diff: "Read" },
+        { title: "Python Packaging Guide (PyPA)", url: "https://packaging.python.org/en/latest/", diff: "Read" },
+      ]},
+      { name: "Design Patterns in Python", detail: "Pythonic implementations of Factory, Observer, Strategy", problems: [
+        { title: "Python Patterns (GitHub — faif)", url: "https://github.com/faif/python-patterns", diff: "Code" },
+        { title: "Refactoring Guru — Python Examples", url: "https://refactoring.guru/design-patterns/python", diff: "Code" },
+        { title: "Architecture Patterns with Python (Free Book)", url: "https://www.cosmicpython.com/book/preface.html", diff: "Read" },
+      ]},
+    ]
+  },
+  45: {
+    color: "#00B4D8", icon: "☁️", title: "Phase 4B", subtitle: "Azure & Cloud Architecture", duration: "Weeks 13–14",
+    description: "Master Azure services for ML and software deployment. This differentiates you heavily in AI/ML and cloud-focused roles.",
+    dailyPlan: [
+      { time: "1 hr", label: "DSA (daily, non-negotiable)" },
+      { time: "1.5 hrs", label: "Azure service deep-dive + hands-on portal/CLI" },
+      { time: "1 hr", label: "Build or extend a cloud project end-to-end" },
+      { time: "30 min", label: "Architecture diagram + trade-off notes" },
+    ],
+    resources: ["Microsoft Learn (free, hands-on)", "Azure Architecture Center", "AZ-204 / AZ-305 study guides"],
+    milestone: "Deploy a RAG-based chatbot on Azure: Azure OpenAI + Cognitive Search + Container Apps.",
+    topics: [
+      { name: "Azure Core Services", detail: "App Service, Azure Functions, AKS, Container Apps", problems: [
+        { title: "Azure App Service Docs", url: "https://learn.microsoft.com/en-us/azure/app-service/", diff: "Read" },
+        { title: "Azure Functions Quickstart", url: "https://learn.microsoft.com/en-us/azure/azure-functions/functions-get-started", diff: "Code" },
+        { title: "Azure Container Apps Overview", url: "https://learn.microsoft.com/en-us/azure/container-apps/overview", diff: "Read" },
+      ]},
+      { name: "Azure ML Studio", detail: "Pipelines, datasets, experiments, model registry, endpoints", problems: [
+        { title: "Azure ML Quickstart", url: "https://learn.microsoft.com/en-us/azure/machine-learning/quickstart-create-resources", diff: "Code" },
+        { title: "Azure ML Pipelines Tutorial", url: "https://learn.microsoft.com/en-us/azure/machine-learning/tutorial-pipeline-python-sdk", diff: "Code" },
+        { title: "Model Registry & Deployment", url: "https://learn.microsoft.com/en-us/azure/machine-learning/how-to-manage-models", diff: "Read" },
+      ]},
+      { name: "Azure OpenAI Service", detail: "Deployments, prompt flow, content filtering, embeddings", problems: [
+        { title: "Azure OpenAI Quickstart", url: "https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart", diff: "Code" },
+        { title: "Prompt Flow Documentation", url: "https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow", diff: "Read" },
+        { title: "Azure OpenAI Samples (GitHub)", url: "https://github.com/Azure/openai-samples", diff: "Code" },
+      ]},
+      { name: "Azure Storage & DBs", detail: "Blob, Data Lake, Cosmos DB, Azure SQL — when to use which", problems: [
+        { title: "Cosmos DB — Choose API", url: "https://learn.microsoft.com/en-us/azure/cosmos-db/choose-api", diff: "Read" },
+        { title: "Azure Storage Overview", url: "https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction", diff: "Read" },
+        { title: "Data Lake Storage Best Practices", url: "https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-best-practices", diff: "Read" },
+      ]},
+      { name: "Azure Networking", detail: "VNet, NSG, Private Endpoints, API Management", problems: [
+        { title: "Azure VNet Concepts", url: "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview", diff: "Read" },
+        { title: "Private Endpoints Guide", url: "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview", diff: "Read" },
+        { title: "API Management Docs", url: "https://learn.microsoft.com/en-us/azure/api-management/", diff: "Read" },
+      ]},
+      { name: "Azure Identity & Security", detail: "Azure AD, Managed Identity, RBAC, Key Vault", problems: [
+        { title: "Managed Identity Explained", url: "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview", diff: "Read" },
+        { title: "Azure RBAC Overview", url: "https://learn.microsoft.com/en-us/azure/role-based-access-control/overview", diff: "Read" },
+        { title: "Key Vault Quickstart", url: "https://learn.microsoft.com/en-us/azure/key-vault/general/quick-create-portal", diff: "Code" },
+      ]},
+      { name: "Azure DevOps & CI/CD", detail: "Pipelines, repos, release gates, blue-green deployments", problems: [
+        { title: "Azure Pipelines Quickstart", url: "https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-get-started", diff: "Code" },
+        { title: "Blue-Green Deployments on Azure", url: "https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/blue-green-deployment", diff: "Read" },
+        { title: "GitHub Actions + Azure Integration", url: "https://learn.microsoft.com/en-us/azure/developer/github/github-actions", diff: "Code" },
+      ]},
+      { name: "Docker & Kubernetes on Azure", detail: "AKS, Helm, pod scaling, Azure Container Registry", problems: [
+        { title: "AKS Quickstart", url: "https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-portal", diff: "Code" },
+        { title: "Helm Charts on AKS", url: "https://learn.microsoft.com/en-us/azure/aks/quickstart-helm", diff: "Code" },
+        { title: "Azure Container Registry Docs", url: "https://learn.microsoft.com/en-us/azure/container-registry/", diff: "Read" },
+      ]},
+    ]
+  },
+  5: {
+    color: "#C77DFF", icon: "🎯", title: "Phase 5", subtitle: "Mock Interviews & Offer", duration: "Weeks 15–16",
+    description: "Simulate real pressure. Fix gaps. Nail behavioral. Apply aggressively.",
+    dailyPlan: [
+      { time: "1.5 hrs", label: "Full mock interview (timed — DSA or System Design)" },
+      { time: "1 hr", label: "Behavioral: STAR stories, 10 questions prep" },
+      { time: "1 hr", label: "Apply to 5–10 companies + tailor resume" },
+      { time: "30 min", label: "Debrief mock + improve weak areas" },
+    ],
+    resources: ["Pramp (free mocks)", "Interviewing.io", "Grokking Behavioral Interview (Educative)"],
+    milestone: "10 mock interviews done. Resume reviewed. Applications live.",
+    topics: [
+      { name: "Timed DSA Mocks", detail: "Pramp, Interviewing.io, LeetCode contests", problems: [
+        { title: "Pramp — Free Mock Interviews", url: "https://www.pramp.com/", diff: "Practice" },
+        { title: "Interviewing.io", url: "https://interviewing.io/", diff: "Practice" },
+        { title: "LeetCode Weekly Contest", url: "https://leetcode.com/contest/", diff: "Practice" },
+      ]},
+      { name: "System Design Mocks", detail: "With a peer or on Pramp — full 45 min sessions", problems: [
+        { title: "Pramp — System Design", url: "https://www.pramp.com/dev/uc-system-design", diff: "Practice" },
+        { title: "Hello Interview — System Design", url: "https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction", diff: "Read" },
+        { title: "ByteByteGo Practice Questions", url: "https://bytebytego.com/", diff: "Practice" },
+      ]},
+      { name: "Behavioral (STAR)", detail: "Leadership, conflict, failure, impact stories", problems: [
+        { title: "Grokking Behavioral Interview (Educative)", url: "https://www.educative.io/courses/grokking-the-behavioral-interview", diff: "Course" },
+        { title: "Amazon Leadership Principles", url: "https://www.amazon.jobs/content/en/our-workplace/leadership-principles", diff: "Read" },
+        { title: "STAR Method Framework (Indeed)", url: "https://www.indeed.com/career-advice/interviewing/how-to-use-the-star-interview-response-technique", diff: "Read" },
+      ]},
+      { name: "ML System Design", detail: "Design a recommendation engine, fraud detection, search", problems: [
+        { title: "ML System Design (Chip Huyen)", url: "https://huyenchip.com/machine-learning-systems-design/toc.html", diff: "Read" },
+        { title: "Designing ML Systems (O'Reilly)", url: "https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/", diff: "Read" },
+        { title: "ML Interviews Primer (GitHub)", url: "https://github.com/alirezadir/Machine-Learning-Interviews", diff: "Read" },
+      ]},
+      { name: "Resume & LinkedIn", detail: "Quantify impact, ATS keywords, referral outreach", problems: [
+        { title: "Tech Resume Guide (Teal HQ)", url: "https://www.tealhq.com/post/software-engineer-resume", diff: "Read" },
+        { title: "Resume Worded (ATS Checker)", url: "https://resumeworded.com/", diff: "Tool" },
+        { title: "LinkedIn Profile Tips", url: "https://www.linkedin.com/business/talent/blog/product-tips/linkedin-profile-tips-for-job-seekers", diff: "Read" },
+      ]},
+      { name: "Negotiation", detail: "Competing offers, base vs equity, leveling conversations", problems: [
+        { title: "Levels.fyi — Compensation Data", url: "https://www.levels.fyi/", diff: "Tool" },
+        { title: "Salary Negotiation (Patrick McKenzie)", url: "https://www.kalzumeus.com/2012/01/23/salary-negotiation/", diff: "Read" },
+        { title: "Negotiation Guide (YouTube)", url: "https://www.youtube.com/watch?v=km2Hd_xgo9Q", diff: "Watch" },
+      ]},
+    ]
+  }
+};
+
+const badgeColors = {
+  Easy:     { bg: "#00C9A720", fg: "#00C9A7" },
+  Medium:   { bg: "#FFD93D20", fg: "#FFD93D" },
+  Hard:     { bg: "#FF6B6B20", fg: "#FF6B6B" },
+  Read:     { bg: "#4D96FF20", fg: "#4D96FF" },
+  Watch:    { bg: "#FF6B6B20", fg: "#FF6B6B" },
+  Course:   { bg: "#C77DFF20", fg: "#C77DFF" },
+  Code:     { bg: "#00C9A720", fg: "#00C9A7" },
+  Tool:     { bg: "#FFD93D20", fg: "#FFD93D" },
+  Practice: { bg: "#FF6B6B20", fg: "#FF6B6B" },
+};
+
+// ── STORAGE ──────────────────────────────────────────────
+function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e){} }
+function load(key, def) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
+
+let topicStatus  = load('topicStatus', {});   // "phaseId_topicIdx" → "todo"|"inprog"|"done"
+let problemDone  = load('problemDone', {});    // "phaseId_topicIdx_probIdx" → true
+let logEntries   = load('logEntries', []);
+let workedDays   = load('workedDays', {});
+let trackerMonth = new Date();
+let selectedMood = '🙂';
+
+// ── TABS ─────────────────────────────────────────────────
+function showTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  ['roadmap','weekly','tracker','prompt'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('hidden', t !== tab);
+  });
+  if (tab === 'roadmap') showPhaseList();
+  if (tab === 'tracker') { setDefaultDate(); renderLog(); }
+}
+
+function showPhaseList() {
+  document.getElementById('phase-list').classList.remove('hidden');
+  document.getElementById('phase-detail').classList.add('hidden');
+  renderPhaseProgress();
+}
+
+// ── PROGRESS on phase list cards ─────────────────────────
+function renderPhaseProgress() {
+  Object.keys(phases).forEach(id => {
+    const p = phases[id];
+    const el = document.getElementById('phase-prog-'+id);
+    if (!el) return;
+    const total = p.topics.length;
+    const done  = p.topics.filter((_, i) => topicStatus[id+'_'+i] === 'done').length;
+    const inprog= p.topics.filter((_, i) => topicStatus[id+'_'+i] === 'inprog').length;
+    el.innerHTML = `
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${Math.round(done/total*100)}%"></div></div>
+      <div class="progress-label">${done}/${total} done${inprog ? ' · '+inprog+' in progress' : ''}</div>
+    `;
+  });
+}
+
+// ── PHASE DETAIL ─────────────────────────────────────────
+function showPhase(id) {
+  const p = phases[id];
+  if (!p) return;
+  document.getElementById('phase-list').classList.add('hidden');
+  document.getElementById('phase-detail').classList.remove('hidden');
+
+  const topicsHtml = p.topics.map((t, ti) => {
+    const key = id+'_'+ti;
+    const st  = topicStatus[key] || 'todo';
+    const stLabel = st === 'done' ? '✓ Done' : st === 'inprog' ? '⏳ In Progress' : '○ Todo';
+    const stClass = 'status-'+st;
+    const cardCls = st === 'done' ? 'topic-card is-done' : st === 'inprog' ? 'topic-card is-inprog' : 'topic-card';
+
+    const probsHtml = t.problems ? t.problems.map((pr, pi) => {
+      const pkey = id+'_'+ti+'_'+pi;
+      const done = problemDone[pkey];
+      const b = badgeColors[pr.diff] || { bg: '#ffffff10', fg: '#aaa' };
+      return `<a class="problem-link${done ? ' pl-done' : ''}" href="${pr.url}" target="_blank" rel="noopener noreferrer"
+        id="pl-${pkey}"
+        onmouseover="this.style.borderColor='${p.color}60'"
+        onmouseout="this.style.borderColor='#1e1e30'">
+        <span class="pl-check${done ? ' checked' : ''}" title="Mark done" onclick="toggleProblem(event,'${pkey}','pl-${pkey}')">✓</span>
+        <span class="problem-title">↗ ${pr.title}</span>
+        <span class="diff-badge" style="background:${b.bg};color:${b.fg}">${pr.diff}</span>
+      </a>`;
+    }).join('') : '';
+
+    return `<div class="${cardCls}" id="tc-${key}">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div class="topic-name">${t.name}</div>
+        <button class="status-btn ${stClass}" onclick="cycleStatus(event,'${id}',${ti},'${p.color}')">${stLabel}</button>
+      </div>
+      <div class="topic-detail">${t.detail}</div>
+      ${probsHtml}
+    </div>`;
+  }).join('');
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="phase-header" style="border-left:4px solid ${p.color}">
+      <div class="phase-header-tag" style="color:${p.color}">${p.title} · ${p.duration}</div>
+      <h2>${p.icon} ${p.subtitle}</h2>
+      <p>${p.description}</p>
+    </div>
+    <div class="detail-grid">
+      <div class="card">
+        <h3>📅 Daily 4-Hour Plan</h3>
+        ${p.dailyPlan.map(d => `
+          <div class="daily-row">
+            <span class="time-badge" style="background:${p.color}20;color:${p.color}">${d.time}</span>
+            <span class="daily-label">${d.label}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card">
+          <h3>📚 Resources</h3>
+          ${p.resources.map(r => `<div class="resource-item"><span style="color:${p.color}">▸</span> ${r}</div>`).join('')}
+        </div>
+        <div class="milestone-card" style="background:${p.color}12;border:1px solid ${p.color}30">
+          <div class="milestone-tag" style="color:${p.color}">🎯 Phase Milestone</div>
+          <div class="milestone-text">${p.milestone}</div>
+        </div>
+      </div>
+    </div>
+    <div class="topics-section">
+      <h3>📌 Topics to Cover</h3>
+      <div class="topics-grid">${topicsHtml}</div>
+    </div>
+  `;
+}
+
+// ── STATUS CYCLE: todo → inprog → done → todo ────────────
+function cycleStatus(e, phaseId, topicIdx, color) {
+  e.stopPropagation();
+  const key = phaseId + '_' + topicIdx;
+  const cur = topicStatus[key] || 'todo';
+  const next = cur === 'todo' ? 'inprog' : cur === 'inprog' ? 'done' : 'todo';
+  topicStatus[key] = next;
+  save('topicStatus', topicStatus);
+
+  const btn = e.target;
+  btn.className = 'status-btn status-' + next;
+  btn.textContent = next === 'done' ? '✓ Done' : next === 'inprog' ? '⏳ In Progress' : '○ Todo';
+
+  const card = document.getElementById('tc-' + key);
+  if (card) {
+    card.className = 'topic-card' + (next === 'done' ? ' is-done' : next === 'inprog' ? ' is-inprog' : '');
+  }
+}
+
+// ── PROBLEM CHECKBOX ─────────────────────────────────────
+function syncTopicStatusFromProblems(phaseId, topicIdx) {
+  const topic = phases[phaseId]?.topics?.[topicIdx];
+  if (!topic || !topic.problems || !topic.problems.length) return;
+
+  const total = topic.problems.length;
+  const done = topic.problems.filter((_, pi) => problemDone[phaseId + '_' + topicIdx + '_' + pi]).length;
+  const key = phaseId + '_' + topicIdx;
+  const next = done === total ? 'done' : done > 0 ? 'inprog' : 'todo';
+
+  topicStatus[key] = next;
+  save('topicStatus', topicStatus);
+
+  const card = document.getElementById('tc-' + key);
+  const btn = card ? card.querySelector('.status-btn') : null;
+  if (card) card.className = 'topic-card' + (next === 'done' ? ' is-done' : next === 'inprog' ? ' is-inprog' : '');
+  if (btn) {
+    btn.className = 'status-btn status-' + next;
+    btn.textContent = next === 'done' ? '✓ Done' : next === 'inprog' ? '⏳ In Progress' : '○ Todo';
+  }
+
+  renderPhaseProgress();
+}
+
+function toggleProblem(e, pkey, linkId) {
+  e.preventDefault(); e.stopPropagation();
+  problemDone[pkey] = !problemDone[pkey];
+  save('problemDone', problemDone);
+
+  const link = document.getElementById(linkId);
+  const chk  = e.target;
+  if (link)  link.classList.toggle('pl-done', problemDone[pkey]);
+  if (chk)   chk.classList.toggle('checked',  problemDone[pkey]);
+
+  const parts = pkey.split('_');
+  syncTopicStatusFromProblems(parts[0], Number(parts[1]));
+}
+
+// ── DAILY LOG ────────────────────────────────────────────
+function setDefaultDate() {
+  const d = document.getElementById('log-date');
+  if (d && !d.value) d.value = formatDateKey(new Date());
+}
+
+function selectMood(btn, mood) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedMood = mood;
+}
+
+function addLogEntry() {
+  const date     = document.getElementById('log-date').value;
+  const phase    = document.getElementById('log-phase').value;
+  const hours    = parseFloat(document.getElementById('log-hours').value) || 0;
+  const problems = parseInt(document.getElementById('log-problems').value) || 0;
+  const topic    = document.getElementById('log-topic').value.trim();
+  const notes    = document.getElementById('log-notes').value.trim();
+
+  if (!date) { alert('Please select a date.'); return; }
+  if (!notes && !topic) { alert('Please add a topic or notes.'); return; }
+
+  const entry = { id: Date.now(), date, phase, hours, problems, topic, notes, mood: selectedMood };
+  logEntries.unshift(entry);
+  workedDays[date] = true;
+  save('logEntries', logEntries);
+  save('workedDays', workedDays);
+
+  // reset
+  document.getElementById('log-phase').value    = '';
+  document.getElementById('log-hours').value    = '';
+  document.getElementById('log-problems').value = '';
+  document.getElementById('log-topic').value    = '';
+  document.getElementById('log-notes').value    = '';
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  selectedMood = '🙂';
+
+  renderLog();
+}
+
+function deleteEntry(id) {
+  logEntries = logEntries.filter(e => e.id !== id);
+  save('logEntries', logEntries);
+  renderLog();
+}
+
+function getWorkedDaySet() {
+  const days = new Set(Object.keys(workedDays).filter(date => workedDays[date]));
+  logEntries.forEach(entry => {
+    if (entry.date) days.add(entry.date);
+  });
+  return days;
+}
+
+function formatDateKey(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function toggleWorkedDay(date, checked) {
+  if (checked) workedDays[date] = true;
+  else delete workedDays[date];
+  save('workedDays', workedDays);
+  renderLog();
+}
+
+function shiftTrackerMonth(offset) {
+  trackerMonth = new Date(trackerMonth.getFullYear(), trackerMonth.getMonth() + offset, 1);
+  renderMonthlyTracker();
+}
+
+function showCurrentTrackerMonth() {
+  trackerMonth = new Date();
+  renderMonthlyTracker();
+}
+
+function renderMonthlyTracker() {
+  const grid = document.getElementById('monthly-tracker');
+  const title = document.getElementById('tracker-month-title');
+  if (!grid || !title) return;
+
+  const year = trackerMonth.getFullYear();
+  const month = trackerMonth.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const workedSet = getWorkedDaySet();
+  const todayKey = formatDateKey(new Date());
+
+  title.textContent = firstDay.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+
+  const blanks = Array.from({ length: firstDay.getDay() }, () => '<div class="tracker-day empty"></div>');
+  const days = Array.from({ length: daysInMonth }, (_, i) => {
+    const day = i + 1;
+    const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const checked = workedSet.has(key);
+    const classes = ['tracker-day'];
+    if (checked) classes.push('is-worked');
+    if (key === todayKey) classes.push('is-today');
+
+    return `<label class="${classes.join(' ')}" title="${key}">
+      <span class="tracker-date">${day}</span>
+      <input class="tracker-check" type="checkbox" onchange="toggleWorkedDay('${key}', this.checked)" ${checked ? 'checked' : ''}>
+    </label>`;
+  });
+
+  grid.innerHTML = blanks.concat(days).join('');
+}
+
+function calcStreak() {
+  const days = [...getWorkedDaySet()].sort().reverse();
+  if (!days.length) return 0;
+  let streak = 0;
+  let cur = new Date(); cur.setHours(0,0,0,0);
+  for (const d of days) {
+    const dd = new Date(d); dd.setHours(0,0,0,0);
+    const diff = Math.round((cur - dd) / 86400000);
+    if (diff <= 1) { streak++; cur = dd; }
+    else break;
+  }
+  return streak;
+}
+
+function phaseColor(phase) {
+  if (!phase) return '#666';
+  if (phase.includes('1')) return '#00C9A7';
+  if (phase.includes('2')) return '#4D96FF';
+  if (phase.includes('3')) return '#FF6B6B';
+  if (phase.includes('4B')) return '#00B4D8';
+  if (phase.includes('4')) return '#FFD93D';
+  if (phase.includes('5')) return '#C77DFF';
+  return '#666';
+}
+
+function renderLog() {
+  const totalHours    = logEntries.reduce((s,e) => s + (e.hours||0), 0);
+  const totalProblems = logEntries.reduce((s,e) => s + (e.problems||0), 0);
+  const uniqueDays    = getWorkedDaySet().size;
+  const streak        = calcStreak();
+
+  document.getElementById('stat-days').textContent     = uniqueDays;
+  document.getElementById('stat-streak').textContent   = streak + (streak >= 3 ? ' 🔥' : '');
+  document.getElementById('stat-hours').textContent    = totalHours.toFixed(1) + 'h';
+  document.getElementById('stat-problems').textContent = totalProblems;
+  renderMonthlyTracker();
+
+  const list = document.getElementById('log-list');
+  if (!logEntries.length) {
+    list.innerHTML = '<div class="empty-log">📝 No entries yet — log your first session above!</div>';
+    return;
+  }
+
+  list.innerHTML = logEntries.map(e => `
+    <div class="log-entry">
+      <div class="log-entry-header">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="log-date-badge">${formatDate(e.date)}</span>
+          ${e.phase ? `<span class="log-phase-tag" style="background:${phaseColor(e.phase)}20;color:${phaseColor(e.phase)}">${e.phase}</span>` : ''}
+          ${e.mood ? `<span style="font-size:16px">${e.mood}</span>` : ''}
+        </div>
+        <button class="log-del" onclick="deleteEntry(${e.id})" title="Delete">✕</button>
+      </div>
+      ${e.topic ? `<div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:4px">📌 ${e.topic}</div>` : ''}
+      ${e.notes ? `<div class="log-notes">${e.notes}</div>` : ''}
+      <div class="log-footer">
+        ${e.hours    ? `<div class="log-footer-item">⏱ <b>${e.hours}h</b> studied</div>` : ''}
+        ${e.problems ? `<div class="log-footer-item">🧩 <b>${e.problems}</b> problems</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatDate(d) {
+  const dt = new Date(d + 'T12:00:00');
+  return dt.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// ── COPY PROMPT ──────────────────────────────────────────
+function copyPrompt() {
+  const text = document.getElementById('prompt-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── INIT ─────────────────────────────────────────────────
+setDefaultDate();
+renderPhaseProgress();
+</script>
+</body>
+</html>
